@@ -28,7 +28,19 @@ describe('updating a user', () => {
 		checkAssertion(joe.save(), done);
 	});
 
-	it(' updating a user with class method update', ( done ) => {
+	it(' updating a user with instance method update', ( done ) => {
 		checkAssertion(joe.update({'name':'Ajith'}), done);
+	});
+
+	it(' updating a user with class method update', ( done ) => {
+		checkAssertion(User.update({'name':'Joe'}, {'name':'Ajith'}), done);
+	});
+
+	it(' updating a user with class method findOneAndUpdate', ( done ) => {
+		checkAssertion(User.findOneAndUpdate({'name':'Joe'}, {'name':'Ajith'}), done);
+	});
+
+	it(' updating a user with class method findByIdAndUpdate', ( done ) => {
+		checkAssertion(User.findByIdAndUpdate( joe._id, {'name':'Ajith'}), done);
 	});
 });
