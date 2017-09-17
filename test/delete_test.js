@@ -32,4 +32,11 @@ describe('removing user from db', () => {
 		done();
 	});
 
+	it(' removing a user with class method findByIdAndRemove ', ( done ) => {
+		User.findByIdAndRemove( joe._id )
+			.then(() => { User.findOne({ name : 'Joe'})})
+			.then(( user ) => { assert( user === null )});
+		done();
+	});
+
 });
