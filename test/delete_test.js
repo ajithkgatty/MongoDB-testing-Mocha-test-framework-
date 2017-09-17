@@ -11,32 +11,27 @@ describe('removing user from db', () => {
 
 	});
 
-	it(' removing a user with model instance', ( done ) => {
-		joe.remove()
-			.then(() => { User.findOne({ name : 'Joe'})})
+	function assertCheck( operator, done ){
+		operator
+		.then(() => { User.findOne({ name : 'Joe'})})
 			.then(( user ) => { assert( user === null )});
 		done();
+	}
+
+	it(' removing a user with model instance', ( done ) => {
+		assertCheck( joe.remove(), done);
 	});
 
 	it(' removing a user with class ', ( done ) => {
-		User.remove({ name : 'Joe'})
-			.then(() => { User.findOne({ name : 'Joe'})})
-			.then(( user ) => { assert( user === null )});
-		done();
+		assertCheck( User.remove({ name : 'Joe'}), done);
 	});
 
 	it(' removing a user with class method findOneAndRemove ', ( done ) => {
-		User.findOneAndRemove({ name : 'Joe'})
-			.then(() => { User.findOne({ name : 'Joe'})})
-			.then(( user ) => { assert( user === null )});
-		done();
+		assertCheck( User.findOneAndRemove({ name : 'Joe'}), done);
 	});
 
 	it(' removing a user with class method findByIdAndRemove ', ( done ) => {
-		User.findByIdAndRemove( joe._id )
-			.then(() => { User.findOne({ name : 'Joe'})})
-			.then(( user ) => { assert( user === null )});
-		done();
+		assertCheck( User.findByIdAndRemove( joe._id ), done);
 	});
 
 });
