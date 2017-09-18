@@ -6,7 +6,7 @@ describe('updating a user', () => {
 	let joe;
 
 	beforeEach(( done ) => {
-		joe = new User({ name: 'Joe'});
+		joe = new User({ name: 'Joe', postCount: 0});
 		joe.save()
 			.then( () => { done();});
 
@@ -42,5 +42,15 @@ describe('updating a user', () => {
 
 	it(' updating a user with class method findByIdAndUpdate', ( done ) => {
 		checkAssertion(User.findByIdAndUpdate( joe._id, {'name':'Ajith'}), done);
+	});
+
+	it(' incrementing user post count by 1', ( done ) => { 
+
+		User.update({ 'name': 'Joe'}, { $inc: { 'postCount': 1 }})
+		.then(() =>  User.find({'name': 'Joe'}))
+		.then( (users) => {
+			assert(users[0].postCount === 1)	
+		});
+		done();
 	});
 });
