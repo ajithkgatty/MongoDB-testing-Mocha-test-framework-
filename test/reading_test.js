@@ -7,9 +7,7 @@ describe('reading a user from database', () => {
 	beforeEach(( done ) =>{
 		joe = new User({ name : "Joe"});
 		joe.save()
-			.then(() => {
-				done();
-			});
+			.then(() => done());
 	});
 
 

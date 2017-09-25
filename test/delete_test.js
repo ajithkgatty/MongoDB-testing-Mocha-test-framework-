@@ -13,7 +13,7 @@ describe('removing user from db', () => {
 
 	function assertCheck( operator, done ){
 		operator
-		.then(() => { User.findOne({ name : 'Joe'})})
+		.then(() => User.findOne({ name : 'Joe'}))
 			.then(( user ) => { assert( user === null )});
 		done();
 	}
@@ -33,5 +33,4 @@ describe('removing user from db', () => {
 	it(' removing a user with class method findByIdAndRemove ', ( done ) => {
 		assertCheck( User.findByIdAndRemove( joe._id ), done);
 	});
-
 });
