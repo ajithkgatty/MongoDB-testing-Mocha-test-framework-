@@ -27,7 +27,21 @@ describe('Subdocuments testing',() => {
 				assert(user.posts.length === 0);
 				done();
 		});
-		
+	});
 
+	it('user can add a sub document to an existing user', (done) => {
+		const joe = new User({ name : 'Joe'});
+		joe.save()
+		.then(() => User.findOne({'name' : 'Joe' }))
+		.then((user) => {
+			user.posts.push({'title' : "Adding a first post"});
+			return user.save();
+		})
+		.then(() => User.findOne({'name' : 'Joe' }))
+		.then((user) => {
+			assert(user.posts.length === 1);
+			assert(user.posts[0].title === 'Adding a first post');
+			done();
+			}); 
 	});
 });
